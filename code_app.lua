@@ -4,14 +4,18 @@ local glue = require'glue'
 
 local tablist = ui.tablist:subclass'ce_tablist'
 
+tablist.tab_slant_left = 80
+tablist.tab_slant_right = 75
+
 local tab = ui.tab:subclass'ce_tab'
 
---tab.focusable = false
+tab.focusable = false
 
 local editbox = ui.editbox:subclass'ce_editbox'
 
 editbox.multiline = true
-editbox.capture_tab = true
+--editbox.uses_key_ctrl_tab = true --inhibit exiting the editbox with ctrl+tab
+--editbox.uses_key_ctrl_shift_tab = true --inhibit exiting the editbox with ctrl+shift+tab
 editbox.border_width = 0
 editbox.editor = {
 	line_numbers = true,
@@ -37,10 +41,7 @@ local win = ui:window{
 	},
 }
 
-local tabs = tablist(win, {
-	tab_slant_left = 80,
-	tab_slant_right = 75,
-})
+local tabs = tablist(win)
 
 win.move_layer = tabs
 
@@ -71,6 +72,7 @@ function tabs:add_tab(file)
 		class = tab,
 		text = file,
 		editbox = editbox,
+		selected = true,
 	}
 
 	return tab
