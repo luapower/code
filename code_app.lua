@@ -2,7 +2,7 @@
 local ui = require'ui'
 local glue = require'glue'
 
-ui:register_font_file('Code Icons', nil, nil, 'media/code/code_icons.ttf')
+ui:register_font_file('Code Icons', nil, nil, 'media/fonts/code_icons.ttf')
 
 local tablist = ui.tablist:subclass'ce_tablist'
 
