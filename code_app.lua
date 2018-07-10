@@ -167,6 +167,7 @@ local empty_tab = tabs:tab{
 	border_dash = 5,
 	title_color = '#999',
 	visible = false,
+	enabled = false,
 	closeable = false,
 	title_padding_left = 5,
 }
