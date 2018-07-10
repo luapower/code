@@ -2,11 +2,14 @@
 local ui = require'ui'
 local glue = require'glue'
 
+ui:register_font_file('Code Icons', nil, nil, 'media/code/code_icons.ttf')
+
 local tablist = ui.tablist:subclass'ce_tablist'
 
 tablist.tab_slant_left = 85
 tablist.tab_slant_right = 70
 tablist.tab_spacing = -5
+tablist.tabs_padding_right = 150
 
 local tab = ui.tab:subclass'ce_tab'
 
@@ -98,9 +101,19 @@ function tabs:after_sync()
 	tabs.h = win.view.ch
 	for i,tab in ipairs(self.tabs) do
 		local e = tab.editbox
-		e.parent = tab
-		e.w = tab.w - 2
-		e.h = tab.h - 2
+		if e then
+			e.parent = tab
+			e.w = tab.w - 2
+			e.h = tab.h - 2
+		end
+	end
+end
+
+function tab:closed()
+	if self.tablist:visible_tab_count() == 0 then
+		local tab = self.tablist.tabs[1]
+		tab.visible = true
+		tab:select()
 	end
 end
 
@@ -121,14 +134,53 @@ local xbutton = ui:button{
 	visible = win.frame == 'none',
 }
 
+local split_button = ui:button{
+	font_family = 'Code Icons',
+	text = '\xEE\xA4\x80',
+	text_size = 16,
+	parent = win,
+	w = 20,
+	h = 20,
+	profile = 'text',
+	focusable = false,
+}
+
+local merge_button = ui:button{
+	font_family = 'Code Icons',
+	text = '\xEE\xA4\x81',
+	text_size = 16,
+	parent = win,
+	w = 20,
+	h = 20,
+	profile = 'text',
+	focusable = false,
+}
+
 local t1 = tabs:add_tab('code_app.lua')
 local t2 = tabs:add_tab('codedit.lua')
 local t3 = tabs:add_tab('ui.lua')
+
+local empty_tab = tabs:tab{
+	index = 1,
+	title = 'Drag a tab here...',
+	background_type = false,
+	border_dash = 5,
+	title_color = '#999',
+	visible = false,
+	closeable = false,
+	title_padding_left = 5,
+}
 
 function sync()
 	tabs:sync(0)
 	xbutton.x = win.view.cw - 40
 	xbutton.y = -win.view.padding_top + 1
+
+	split_button.x = win.view.cw - 100
+	split_button.y = -win.view.padding_top + 10
+
+	merge_button.x = win.view.cw - 124
+	merge_button.y = -win.view.padding_top + 10
 end
 
 function win:client_rect_changed(cx, cy, cw, ch)
