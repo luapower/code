@@ -1,0 +1,31 @@
+
+issues:
+	- merged key bindings for editor and app. editor gets key bindings that it has no commands for.
+
+- customization:
+	- global, local (per-project), per-filetype config file.
+	- reload config on the fly when saving the config file.
+- hi-level feats
+	- create tooltip list from the syntax hightlighter
+	- integrate a Lua linter
+- autocompletion
+- calltips
+- file change detection
+- auto-backup incl. the undo/redo stack
+
+
+QUESTIONS
+---------
+- find/replace macros:
+	- make a table based on separators (see automatic table formatting above)
+- bookmarks:
+	- how to manage writing code and browsing the same code (but different parts of it) at the same time? split view?
+		- idea: simple shortcut to go back to where the cursor was last time you were typing (i always use ctrl+z/ctrl+y)
+
+features I never use
+	- macros
+	- printing (so 50s)
+	- code folding (maybe something like autofolding/unfolding with a side window for fold contents?)
+	- line wrapping
+	- multiple selections
+
