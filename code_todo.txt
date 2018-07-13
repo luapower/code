@@ -1,6 +1,7 @@
 
-issues:
-	- merged key bindings for editor and app. editor gets key bindings that it has no commands for.
+- split/merge screen using a docking tablist widget.
+
+- options tab using a settings widget.
 
 - customization:
 	- global, local (per-project), per-filetype config file.
